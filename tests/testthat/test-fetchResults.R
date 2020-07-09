@@ -14,7 +14,15 @@ test_that("Fetch results", {
   expect_equal(count[1, 1], 58)
   count <- renderTranslateQuerySql(connection, sql, cdm_database_schema = cdmDatabaseSchema)
   expect_equal(count[1, 1], 58)
-  
+
+  # Fetch Andromeda:
+  andromeda <- Andromeda::andromeda()
+  querySqlToAndromeda(connection, renderedSql, andromeda = andromeda, andromedaTableName = "test", snakeCaseToCamelCase = TRUE)
+  expect_equivalent(dplyr::collect(andromeda$test)$rowCount[1], 58)
+  renderTranslateQuerySqlToAndromeda(connection, sql, cdm_database_schema = cdmDatabaseSchema, andromeda = andromeda, andromedaTableName = "test2", snakeCaseToCamelCase = TRUE)
+  expect_equivalent(dplyr::collect(andromeda$test2)$rowCount[1], 58)
+
+
   disconnect(connection)
   
   # SQL Server --------------------------------------
@@ -32,6 +40,13 @@ test_that("Fetch results", {
   count <- renderTranslateQuerySql(connection, sql, cdm_database_schema = cdmDatabaseSchema)
   expect_equal(count[1, 1], 71)
   
+  # Fetch Andromeda:
+  andromeda <- Andromeda::andromeda()
+  querySqlToAndromeda(connection, renderedSql, andromeda = andromeda, andromedaTableName = "test", snakeCaseToCamelCase = TRUE)
+  expect_equivalent(dplyr::collect(andromeda$test)$rowCount[1], 71)
+  renderTranslateQuerySqlToAndromeda(connection, sql, cdm_database_schema = cdmDatabaseSchema, andromeda = andromeda, andromedaTableName = "test2", snakeCaseToCamelCase = TRUE)
+  expect_equivalent(dplyr::collect(andromeda$test2)$rowCount[1], 71)
+
   disconnect(connection)
   
   connection <- connect(dbms = "oracle",
@@ -48,5 +63,12 @@ test_that("Fetch results", {
   count <- renderTranslateQuerySql(connection, sql, cdm_database_schema = cdmDatabaseSchema)
   expect_equal(count[1, 1], 71)
   
+  # Fetch Andromeda:
+  andromeda <- Andromeda::andromeda()
+  querySqlToAndromeda(connection, renderedSql, andromeda = andromeda, andromedaTableName = "test", snakeCaseToCamelCase = TRUE)
+  expect_equivalent(dplyr::collect(andromeda$test)$rowCount[1], 71)
+  renderTranslateQuerySqlToAndromeda(connection, sql, cdm_database_schema = cdmDatabaseSchema, andromeda = andromeda, andromedaTableName = "test2", snakeCaseToCamelCase = TRUE)
+  expect_equivalent(dplyr::collect(andromeda$test2)$rowCount[1], 71)
+
   disconnect(connection)
 })

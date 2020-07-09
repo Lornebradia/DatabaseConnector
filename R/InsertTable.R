@@ -179,16 +179,16 @@ is.bigint <- function(x) {
 #' Insert a table on the server
 #'
 #' @description
-#' This function sends the data in a data frame or ffdf to a table on the server. Either a new table
+#' This function sends the data in a data frame to a table on the server. Either a new table
 #' is created, or the data is appended to an existing table.
 #'
 #' @param connection          The connection to the database server.
 #' @param tableName           The name of the table where the data should be inserted.
-#' @param data                The data frame or ffdf containing the data to be inserted.
+#' @param data                The data frame containing the data to be inserted.
 #' @param dropTableIfExists   Drop the table if the table already exists before writing?
 #' @param createTable         Create a new table? If false, will append to existing table.
 #' @param tempTable           Should the table created as a temp table?
-#' @param oracleTempSchema    Specifically for Oracle, a schema with write priviliges where temp tables
+#' @param oracleTempSchema    Specifically for Oracle, a schema with write privileges where temp tables
 #'                            can be created.
 #' @param useMppBulkLoad      If using Redshift or PDW, use more performant bulk loading techniques.
 #'                            Setting the system environment variable "USE_MPP_BULK_LOAD" to TRUE is
